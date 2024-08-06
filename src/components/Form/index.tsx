@@ -1,9 +1,9 @@
-import React, {HTMLInputTypeAttribute, RefObject, useState} from 'react';
+import React, {HTMLInputTypeAttribute, useState} from 'react';
 import {useForm, SubmitHandler, useFormContext, FormProvider} from 'react-hook-form';
-import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {Icon} from "@iconify/react";
 import {TransactionType} from "@/src/service/api/TransactionService";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export type TextInputProps = {
     path: string;
@@ -20,13 +20,13 @@ const ErrorMessage: React.FC<{ error?: boolean, path: string }> = ({ error, path
     return error ? <span className="text-rose-600 text-sm mt-1">{path} is required</span> : null;
 };
 
-const PasswordToggle: React.FC<{ onClick: (e: React.MouseEvent<HTMLButtonElement>) => void }> = ({ onClick }) => {
+export const PasswordToggle: React.FC<{ onClick: (e: React.MouseEvent<HTMLButtonElement>) => void }> = ({ onClick }) => {
     return (
         <button
             onClick={onClick}
-            className="w-2/12 h-12 flex justify-center items-center rounded border-2 border-primary-gray bg-transparent p-2 active:opacity-50 transition-all duration-100"
+            className="w-2/12 h-12 flex justify-center items-center rounded border-2 bg-white p-2 active:opacity-50 transition-all duration-100"
         >
-            <Icon icon='tabler:eye' fontSize={27} color='#FFF' />
+            <Icon icon='tabler:eye' fontSize={27} color='#5e6269' />
         </button>
     );
 };
@@ -48,7 +48,7 @@ export const TextInput: React.FC<TextInputProps> = ({ path, label, required = fa
             <div className={`flex ${type === 'password' ? 'items-center justify-between' : ''}`}>
                 <input
                     type={inputType}
-                    className={`w-${type === 'password' ? '4/5' : 'full'} h-12 border-2 border-primary-gray rounded bg-transparent p-2 text-white font-bold`}
+                    className={`w-${type === 'password' ? '4/5' : 'full'} h-12 border-2 rounded bg-white p-2 text-black font-bold`}
                     {...register(path, { required })}
                 />
                 {type === 'password' && <PasswordToggle onClick={togglePasswordVisibility} />}
@@ -89,7 +89,7 @@ const Form: React.FC<FormProps> = ({children, onSubmit, schema}) => {
 
     return (
         <FormProvider {...methods}>
-            <form className="w-full h-auto flex flex-col items-center" onSubmit={methods.handleSubmit(onSubmit)}>
+            <form className="w-full h-auto flex flex-col" onSubmit={methods.handleSubmit(onSubmit)}>
                 {children}
             </form>
         </FormProvider>
