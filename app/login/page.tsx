@@ -8,6 +8,7 @@ import {useRouter} from "next/navigation";
 import Link from 'next/link'
 import {useMutation} from "@tanstack/react-query";
 import AuthLayout from "@/src/components/Layout/Auth";
+import Loading from "@/src/components/Loading";
 
 const SCHEMA = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -19,7 +20,7 @@ export default function Login() {
     const router = useRouter();
     const mutation = useMutation({
         mutationFn: async (form: SignInProps) => {
-            await signIn(form);
+            // await signIn(form);
         },
         onSuccess: () => {
             router.push("/dashboard");
@@ -34,26 +35,24 @@ export default function Login() {
 
     return (
         <AuthLayout>
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-center">
                 <div className="mt-44"/>
-                <div className="w-full max-w-96 flex justify-start mb-5">
-                    <p className="self-start text-white font-bold text-3xl">Login</p>
-                </div>
+                <p className="text-black font-semibold text-3xl">Login</p>
+                <div className="mb-10"/>
                 <Form onSubmit={onSubmit} schema={SCHEMA}>
                     <TextInput path="email" label="Email" required/>
                     <div className="mt-4"/>
                     <TextInput path="password" label="Password" type="password" required/>
                     <div className="mt-3"/>
                     <div className="mt-14"/>
-                    <button className="w-full max-w-96 flex justify-center items-center bg-primary-green text-white rounded font-bold h-12 shadow-sm shadow-secondary-green active:shadow-inner active:shadow-secondary-green">
-                        {mutation.isPending ? <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        </svg> : "Access"}
+                    <button className="w-full max-w-96 flex justify-center items-center bg-pink-500 hover:bg-pink-400 active:opacity-80 text-white rounded font-bold h-12 shadow-sm shadow-secondary-green active:shadow-inner active:shadow-secondary-green">
+                        {mutation.isPending ? <Loading/> : "Acessar"}
                     </button>
                     <div className="mt-3"/>
-                    <div className="w-full max-w-96 flex justify-end">
+                    <div className="w-full max-w-96 flex justify-end active:opacity-80">
                         <Link href="/register">
-                            <p className="text-gray-200">
-                                I want to create an account
+                            <p className="text-black">
+                                Criar conta
                             </p>
                         </Link>
                     </div>
