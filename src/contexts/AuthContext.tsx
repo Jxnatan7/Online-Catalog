@@ -1,8 +1,8 @@
 'use client'
 
-import {createContext, ReactNode, useEffect, useState} from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { api } from "../service/api/http";
 
 export type AuthContextData = {
@@ -35,12 +35,13 @@ export function signOut() {
     destroyCookie(null, myFinanceToken, { path: "/" });
 }
 
-export function AuthProvider({ children }: AuthProviderProps) {4
+export function AuthProvider({ children }: AuthProviderProps) {
+    4
     const router = useRouter();
     const pathname = usePathname();
 
     const [token] = useState(() => {
-        const { "@my-finance.token": myFinanceToken } = parseCookies();
+        const { "@online-catalog.token": myFinanceToken } = parseCookies();
         return myFinanceToken;
     });
 
