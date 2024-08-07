@@ -59,24 +59,6 @@ export const TextInput: React.FC<TextInputProps & React.InputHTMLAttributes<HTML
     );
 };
 
-// export const SelectTransactionType: React.FC<TextInputProps> = ({ path, label, required = false, type = 'text' }) => {
-//     const { register, formState: { errors } } = useFormContext();
-//     const error = required && !!errors[path];
-
-//     return (
-//         <div className="flex flex-col w-full max-w-96">
-//             <Label label={label}/>
-//             <div className="flex">
-//                 <select className="w-full h-12 border-2 border-primary-gray rounded bg-transparent p-2 text-white font-bold" {...register(path, {required})}>
-//                     <option value={TransactionType.Credit}>Credit</option>
-//                     <option value={TransactionType.Debit}>Debit</option>
-//                 </select>
-//             </div>
-//             <ErrorMessage error={error} path={path}/>
-//         </div>
-//     )
-// }
-
 type FormProps = {
     children: React.ReactNode;
     onSubmit: SubmitHandler<any>;
@@ -98,3 +80,22 @@ const Form: React.FC<FormProps> = ({ children, onSubmit, schema }) => {
 };
 
 export default Form;
+
+
+// export const SelectTransactionType: React.FC<TextInputProps> = ({ path, label, required = false, type = 'text' }) => {
+//     const { register, formState: { errors } } = useFormContext();
+//     const error = required && !!errors[path];
+
+//     return (
+//         <div className="flex flex-col w-full max-w-96">
+//             <Label label={label}/>
+//             <div className="flex">
+//                 <select className="w-full h-12 border-2 border-primary-gray rounded bg-transparent p-2 text-white font-bold" {...register(path, {required})}>
+//                     <option value={TransactionType.Credit}>Credit</option>
+//                     <option value={TransactionType.Debit}>Debit</option>
+//                 </select>
+//             </div>
+//             <ErrorMessage error={error} path={path}/>
+//         </div>
+//     )
+// }
