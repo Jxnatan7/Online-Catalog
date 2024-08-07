@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchInput = () => {
     return (
-        <input className="w-full h-11 border-gray-200 border-2 bg-transparent text-white text-md rounded p-3" placeholder="Buscar" type="text"/>
+        <input className="w-3/5 h-11 shadow border bg-white text-pink-600 text-md rounded p-3" placeholder="Buscar" type="text" />
     )
 }
 
