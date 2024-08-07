@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { useBoolean } from "@/src/hooks";
 import SearchInput from "@/src/components/SearchInput";
 import Image from "next/image";
+import formatDistance from "@/src/utils/formatDistace";
 
 export const Header = () => {
     return (
@@ -50,6 +51,19 @@ export const Company = ({ company }: { company: any }) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={company.image} alt="company-image" className="w-full h-auto rounded"/>
             </div>
+            <div className="w-3/4 h-full p-2 flex flex-col justify-between">
+                <p className="text-black font-medium text-lg">
+                    {company.name}
+                </p>
+                <div className="flex justify-start gap-5 text-sm">
+                    <p>{company.category}</p>
+                    <p>{formatDistance(company.distance)}</p>
+                </div>
+                <div className="flex justify-start gap-5 text-sm">
+                    <p>R$ {company.deliveryFee}</p>
+                    <p>{company.deliveryTime} min</p>
+                </div>
+            </div>
         </div>
     )
 }
@@ -60,7 +74,8 @@ export const CompanyList = () => {
         image: "https://s2-receitas.glbimg.com/vPur4NCE_E-plaFDv5YRKYzr8UU=/0x0:1200x798/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2023/r/5/1uLFlxT928PSYtPvH9Fg/acai-beneficios.jpg",
         distance: 1700, // metros,
         category: "Açaí",
-        deliveryFee: 12.50
+        deliveryFee: 12.50,
+        deliveryTime: 30 // minutos
     };
     const list = [company, company, company, company, company, company, company, company, company, company, company, company];
     return (

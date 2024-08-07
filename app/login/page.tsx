@@ -35,7 +35,7 @@ export default function Login() {
 
     return (
         <AuthLayout>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center justify-center h-full">
                 <div className="mt-24" />
                 <p className="text-black font-semibold text-3xl">Login</p>
                 <div className="mb-10" />
