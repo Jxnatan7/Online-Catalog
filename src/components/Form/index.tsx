@@ -1,8 +1,8 @@
-import React, {HTMLInputTypeAttribute, useState} from 'react';
-import {useForm, SubmitHandler, useFormContext, FormProvider} from 'react-hook-form';
+import React, { HTMLAttributes, HTMLInputTypeAttribute, useState } from 'react';
+import { useForm, SubmitHandler, useFormContext, FormProvider } from 'react-hook-form';
 import * as yup from "yup";
-import {Icon} from "@iconify/react";
-import {TransactionType} from "@/src/service/api/TransactionService";
+import { Icon } from "@iconify/react";
+import { TransactionType } from "@/src/service/api/TransactionService";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 export type TextInputProps = {
@@ -31,7 +31,7 @@ export const PasswordToggle: React.FC<{ onClick: (e: React.MouseEvent<HTMLButton
     );
 };
 
-export const TextInput: React.FC<TextInputProps> = ({ path, label, required = false, type = 'text' }) => {
+export const TextInput: React.FC<TextInputProps & React.InputHTMLAttributes<HTMLInputElement>> = ({ path, label, required = false, type = 'text', ...rest }) => {
     const { register, formState: { errors } } = useFormContext();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -50,10 +50,11 @@ export const TextInput: React.FC<TextInputProps> = ({ path, label, required = fa
                     type={inputType}
                     className="w-full h-12 border-2 border-gray-500 rounded bg-white p-2 text-black font-bold"
                     {...register(path, { required })}
+                    {...rest}
                 />
                 {type === 'password' && <PasswordToggle onClick={togglePasswordVisibility} />}
             </div>
-            <ErrorMessage error={error} path={path}/>
+            <ErrorMessage error={error} path={path} />
         </div>
     );
 };
@@ -82,7 +83,7 @@ type FormProps = {
     schema: yup.ObjectSchema<any>;
 };
 
-const Form: React.FC<FormProps> = ({children, onSubmit, schema}) => {
+const Form: React.FC<FormProps> = ({ children, onSubmit, schema }) => {
     const methods = useForm({
         resolver: yupResolver(schema),
     });

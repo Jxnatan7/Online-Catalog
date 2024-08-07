@@ -1,4 +1,4 @@
-function generateValidCPF() {
+export default function generateValidCPF() {
     const generateRandomDigits = (count: number) => Array.from({ length: count }, () => Math.floor(Math.random() * 10));
 
     const calculateDigit = (digits: number[]) => {

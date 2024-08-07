@@ -1,14 +1,16 @@
 'use client'
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Form, { TextInput } from "@/src/components/Form"
 import * as yup from "yup";
-import { AuthContext, SignInProps } from "@/src/contexts/AuthContext";
+import { AuthContext, SignUpProps } from "@/src/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from 'next/link'
 import { useMutation } from "@tanstack/react-query";
 import AuthLayout from "@/src/components/Layout/Auth";
 import Loading from "@/src/components/Loading";
+import generateValidCPF from "@/src/utils/generateValidCPF";
+import formatCPF from "@/src/utils/formatCPF";
 
 const SCHEMA = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -16,11 +18,13 @@ const SCHEMA = yup.object().shape({
 });
 
 export default function Login() {
-    const { signIn } = useContext(AuthContext);
+    const [value, setValue] = useState(() => formatCPF(generateValidCPF()));
+
+    const { signUp } = useContext(AuthContext);
     const router = useRouter();
     const mutation = useMutation({
-        mutationFn: async (form: SignInProps) => {
-            // await signIn(form);
+        mutationFn: async (form: SignUpProps) => {
+            await signUp(form);
         },
         onSuccess: () => {
             router.push("/login");
@@ -29,8 +33,14 @@ export default function Login() {
         },
     });
 
-    const onSubmit = (form: SignInProps) => {
+    const onSubmit = (form: SignUpProps) => {
         mutation.mutate(form);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value.replace(/\D/g, '');
+        const maskedValue = formatCPF(rawValue);
+        setValue(maskedValue);
     };
 
     return (
@@ -46,7 +56,7 @@ export default function Login() {
                     <div className="mt-4" />
                     <TextInput path="password" label="Password" type="password" required />
                     <div className="mt-4" />
-                    <TextInput path="cpf" label="CPF" required />
+                    <TextInput path="cpf" label="CPF" value={value} onChange={(e) => handleChange(e)} disabled required />
                     <div className="mt-3" />
                     <div className="mt-14" />
                     <button className="w-full max-w-96 flex justify-center items-center bg-pink-500 hover:bg-pink-400 active:opacity-80 text-white rounded font-bold h-12 shadow-sm shadow-secondary-green active:shadow-inner active:shadow-secondary-green">
